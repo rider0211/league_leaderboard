@@ -1,0 +1,38 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.schedule-page, .leaderboard-page, .not-found-page {
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  color: #182C62;
+}
+
+table {
+  width: 90%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #E4EDF2;
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background-color: #025FEB;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #F6F7F7;
+}
+
+tr:nth-child(odd) {
+  background-color: white;
+}
