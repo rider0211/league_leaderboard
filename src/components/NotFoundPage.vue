@@ -3,10 +3,9 @@
     <img src="../assets/404.png" alt="404" class="mx-auto" />
   </div>
 </template>
-  
+
 <style scoped>
-  .not-found-page {
-    padding: 40px;
-  }
+.not-found-page {
+  padding: 40px;
+}
 </style>
-  

@@ -13,10 +13,10 @@
             </thead>
             <tbody>
                 <tr v-for="(match, index) in matches" :key="index"
-                    :class="{ 'bg-even-row': index % 2 === 0, 'bg-white': index % 2 !== 0}">
+                    :class="{ 'bg-even-row': index % 2 === 0, 'bg-white': index % 2 !== 0 }">
                     <td class="p-3 text-right text-sm date-time-col">
-                        <p>{{getYear(match.matchDate)}}</p>
-                        <p>{{getTime(match.matchDate)}}</p>
+                        <p>{{ getYear(match.matchDate) }}</p>
+                        <p>{{ getTime(match.matchDate) }}</p>
                     </td>
                     <td class="p-3 text-left text-sm stadium-col">{{ match.stadium }}</td>
                     <td class="p-3 table-bold text-right">
@@ -36,87 +36,98 @@
 </template>
 
 <script>
-    import LeagueService from '../services/LeagueService';
+import LeagueService from '../services/LeagueService';
 
-    export default {
-        data() {
-            return {
-                matches: []
-            };
+export default {
+    data() {
+        return {
+            matches: []
+        };
+    },
+    async created() {
+        await LeagueService.fetchData();
+        this.matches = LeagueService.getMatches();
+    },
+    methods: {
+        getYear(timestamp) {
+            const date = new Date(timestamp);
+            const day = date.getDate();
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear();
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            return `${day}.${month}.${year}`;
         },
-        async created() {
-            await LeagueService.fetchData();
-            this.matches = LeagueService.getMatches();
-        },
-        methods: {
-            getYear(timestamp){
-                const date = new Date(timestamp);
-                const day = date.getDate();
-                const month = date.getMonth() + 1;
-                const year = date.getFullYear();
-                const hours = String(date.getHours()).padStart(2, '0');
-                const minutes = String(date.getMinutes()).padStart(2, '0');
-                return `${day}.${month}.${year}`;
-            },
-            getTime(timestamp){
-                const date = new Date(timestamp);
-                const hours = String(date.getHours()).padStart(2, '0');
-                const minutes = String(date.getMinutes()).padStart(2, '0');
-                return `${hours}:${minutes}`;
+        getTime(timestamp) {
+            const date = new Date(timestamp);
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            return `${hours}:${minutes}`;
 
-            },
-            getFlagUrl(countryName) {
-                return `https://flagsapi.codeaid.io/${countryName.replace(/ /g, '%20')}.png`;
-            }
+        },
+        getFlagUrl(countryName) {
+            return `https://flagsapi.codeaid.io/${countryName.replace(/ /g, '%20')}.png`;
         }
-    };
+    }
+};
 </script>
 
 <style scoped>
-    .schedule-page {
-        padding: 40px 0px 40px 0px;
+.schedule-page {
+    padding: 40px 0px 40px 0px;
+}
+
+tr {
+    height: 70px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #182C62;
+    font-size: 24px;
+}
+
+.bg-table-header {
+    background-color: #E4EDF2;
+    font-size: 12px;
+    height: 40px;
+}
+
+.border-table {
+    border: 1px solid #E4EDF2;
+}
+
+.table-bold {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.bg-even-row {
+    background-color: #F6F7F7;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+table {
+    color: #4B5C68;
+}
+
+.flag {
+    width: 53px;
+    height: 37px;
+}
+
+@media (max-width: 750px) {
+    .stadium-col {
+        display: none;
     }
-    tr {
-        height: 70px;
+}
+
+@media (max-width: 500px) {
+    .date-time-col {
+        display: none;
     }
-    h1 {
-        margin-bottom: 20px;
-        color: #182C62;
-        font-size: 24px;
-    }
-    .bg-table-header {
-        background-color: #E4EDF2;
-        font-size: 12px;
-        height: 40px;
-    }
-    .border-table {
-        border: 1px solid #E4EDF2;
-    }
-    .table-bold {
-        font-size: 16px;
-        font-weight: bold;
-    }
-    .bg-even-row {
-        background-color: #F6F7F7;
-    }
-    .bg-white {
-        background-color: white;
-    }
-    table {
-        color: #4B5C68;
-    }
-    .flag {
-        width: 53px;
-        height: 37px;
-    }
-    @media (max-width: 750px) {
-        .stadium-col {
-            display: none;
-        }
-    }
-    @media (max-width: 500px) {
-        .date-time-col {
-            display: none;
-        }
-    }
+}
 </style>

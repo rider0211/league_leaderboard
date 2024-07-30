@@ -31,74 +31,86 @@
 </template>
 
 <script>
-    import LeagueService from '../services/LeagueService';
+import LeagueService from '../services/LeagueService';
 
-    export default {
-        data() {
-            return {
-                leaderboard: []
-            };
-        },
-        async created() {
-            await LeagueService.fetchData();
-            this.leaderboard = LeagueService.getLeaderboard();
-        },
-        methods: {
-            getFlagUrl(countryName) {
-                return `https://flagsapi.codeaid.io/${countryName.replace(/ /g, '%20')}.png`;
-            }
+export default {
+    data() {
+        return {
+            leaderboard: []
+        };
+    },
+    async created() {
+        await LeagueService.fetchData();
+        this.leaderboard = LeagueService.getLeaderboard();
+    },
+    methods: {
+        getFlagUrl(countryName) {
+            return `https://flagsapi.codeaid.io/${countryName.replace(/ /g, '%20')}.png`;
         }
-    };
+    }
+};
 </script>
 
 <style scoped>
-    .leaderboard-page {
-        padding: 40px 0px 40px 0px;
-    }
-    h1 {
-        margin-bottom: 20px;
-        color: #182C62;
-        font-size: 24px;
-    }
-    tr {
-        height: 70px;
-    }
-    .bg-table-header {
-        background-color: #E4EDF2;
-        font-size: 12px;
-        height: 40px;
-    }
-    .table-bold {
-        font-size: 16px;
-        font-weight: bold;
-    }
-    .bg-even-row {
-        background-color: #F6F7F7;
-    }
-    .bg-white {
-        background-color: white;
-    }
-    table {
-        color: #4B5C68;
-    }
-    .flag {
-        width: 53px;
-        height: 37px;
-    }
-    .gd-col {
+.leaderboard-page {
+    padding: 40px 0px 40px 0px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #182C62;
+    font-size: 24px;
+}
+
+tr {
+    height: 70px;
+}
+
+.bg-table-header {
+    background-color: #E4EDF2;
+    font-size: 12px;
+    height: 40px;
+}
+
+.table-bold {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.bg-even-row {
+    background-color: #F6F7F7;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+table {
+    color: #4B5C68;
+}
+
+.flag {
+    width: 53px;
+    height: 37px;
+}
+
+.gd-col {
+    display: none;
+}
+
+.text-blue {
+    color: #025FEB;
+}
+
+@media (max-width: 500px) {
+
+    .gf-col,
+    .ga-col {
         display: none;
     }
-    .text-blue {
-        color: #025FEB;
-    }
-    @media (max-width: 500px) {
-        .gf-col,
-        .ga-col {
-            display: none;
-        }
 
-        .gd-col {
-            display: table-cell;
-        }
+    .gd-col {
+        display: table-cell;
     }
+}
 </style>
